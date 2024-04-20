@@ -21,7 +21,8 @@ public class Member {
     private Date createDate;
     private Date deleteDate;
     private Date updateDate;
-    private int role;
+    @Column
+    private Role role;
     @Column(unique = true)
     private String email;
     @Column(unique = true)

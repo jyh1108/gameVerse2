@@ -37,8 +37,8 @@ out/
 .vscode/
 
 ### db파일 ###
-techtree_dev.mv.db
-techtree_dev.trace.db
+gameVerse2_dev.mv.db
+gameVerse2_dev.trace.db
 
 ### secret ###
 #application-secret.yml

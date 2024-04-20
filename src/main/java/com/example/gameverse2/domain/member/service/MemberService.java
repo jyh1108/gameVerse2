@@ -2,6 +2,7 @@ package com.example.gameverse2.domain.member.service;
 
 import com.example.gameverse2.domain.member.dao.MemberRepository;
 import com.example.gameverse2.domain.member.entity.Member;
+import com.example.gameverse2.domain.member.entity.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
@@ -20,7 +21,7 @@ public class MemberService {
         member.setLoginId(loginId);
         member.setEmail(email);
         member.setNickName(nickName);
-        member.setRole(1);
+        member.setRole(Role.MEMBER);
         member.setDeleteFl('N');
         member.setCreateDate(new Date());
         member.setPassword(passwordEncoder.encode(password));
