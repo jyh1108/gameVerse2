@@ -8,6 +8,8 @@
 <body>
 <button class="btn1"> 메인페이지 입니다</button>
 <a class="nav-link" th:href="@{/member/signup}">회원가입</a>
-<a class="nav-link" th:href="@{/member/login}">로그인</a>
+<a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/login}">로그인</a>
+<a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a>
+<a th:href="@{/board/create}" class="btn btn-primary">개시글 등록하기</a>
 </body>
 </html>
