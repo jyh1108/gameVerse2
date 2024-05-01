@@ -7,22 +7,23 @@ import lombok.*;
 import java.util.Date;
 
 @Getter
+@Setter
 @Entity
 @Builder
-@NoArgsConstructor(access = AccessLevel.PROTECTED)
-@AllArgsConstructor(access = AccessLevel.PROTECTED)
+@NoArgsConstructor
+@AllArgsConstructor
 public class Board {
 
     @ManyToOne
-    @JoinColumn(name = "memberId")
-    private Member member;
+    @JoinColumn(name = "memberNo")
+    private Member memberNo;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardNo;
     @Column
-    private int boardCode; //코드 롤,옵치 종류 등등
+    private String boardCode; //코드 롤,옵치 종류 등등
     @Column
-    private int tag; //태그 자유,팁 등등
+    private String tag; //태그 자유,팁 등등
     @Column(columnDefinition = "TEXT")
     private String boardTitle; //제목
     @Column
@@ -39,5 +40,7 @@ public class Board {
     private char boardDelete; //삭제여부
     @Column
     private int likeCount; // 좋아요
+    @ManyToOne
+    private Member nickName;
 
 }
