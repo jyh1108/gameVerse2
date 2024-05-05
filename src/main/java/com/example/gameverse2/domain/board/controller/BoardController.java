@@ -30,10 +30,10 @@ public class BoardController {
     @PreAuthorize("isAuthenticated()")
     @PostMapping("/create")
     public String createBoard(@Valid BoardDto boardDto, BindingResult bindingResult, Principal principal) {
-        Member member = this.memberService.getMember(principal.getName());
+            Member member = this.memberService.getMember(principal.getName());
+
         boardService.createBoard(boardDto.getBoardTitle(),boardDto.getBoardText()
                 ,boardDto.getBoardCode(),boardDto.getTag(),member);
-
 
         return "redirect:/";
     }

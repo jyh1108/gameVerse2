@@ -31,8 +31,8 @@ public class MemberService {
         return member;
     }
 
-    public Member getMember(String nickName) {
-        Optional<Member> member = this.memberRepository.findByNickName(nickName);
+    public Member getMember(String loginId) {
+        Optional<Member> member = this.memberRepository.findByLoginId(loginId);
         if (member.isPresent()) {
             return member.get();
         } else {

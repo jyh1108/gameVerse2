@@ -14,9 +14,6 @@ import java.util.Date;
 @AllArgsConstructor
 public class Board {
 
-    @ManyToOne
-    @JoinColumn(name = "memberNo")
-    private Member memberNo;
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long boardNo;
@@ -41,6 +38,6 @@ public class Board {
     @Column
     private int likeCount; // 좋아요
     @ManyToOne
-    private Member nickName;
+    private Member author;
 
 }
