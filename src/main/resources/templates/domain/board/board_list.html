@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+    <table>
+        <thead>
+        <tr>
+            <th>제목</th>
+            <th>작성일시</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr th:each="board : ${board}">
+            <td>
+                <a th:href="@{|/board/detail/${board.boardNo}|}" th:text="${board.boardTitle}"></a>
+            </td>
+            <td th:text="${board.createDate}"></td>
+        </tr>
+        </tbody>
+    </table>
+</body>
+</html>

@@ -3,11 +3,14 @@ package com.example.gameverse2.domain.board.service;
 import com.example.gameverse2.domain.board.dao.BoardRepository;
 import com.example.gameverse2.domain.board.entity.Board;
 import com.example.gameverse2.domain.member.dao.MemberRepository;
+import com.example.gameverse2.domain.member.entity.DataNotFoundException;
 import com.example.gameverse2.domain.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
+import java.util.List;
+import java.util.Optional;
 
 @RequiredArgsConstructor
 @Service
@@ -30,5 +33,18 @@ public class BoardService {
         board.setAuthor(author);
         this.boardRepository.save(board);
         return board;
+    }
+
+    public List<Board> getList() {
+        return this.boardRepository.findAll();
+    }
+
+    public Board getBoard(Long boardNo){
+        Optional<Board> board = this.boardRepository.findById(boardNo);
+        if(board.isPresent()){
+            return board.get();
+        }else {
+            throw new DataNotFoundException("board not found");
+        }
     }
 }
