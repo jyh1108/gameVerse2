@@ -1,10 +1,12 @@
 package com.example.gameverse2.domain.board.entity;
 
 import com.example.gameverse2.domain.member.entity.Member;
+import com.example.gameverse2.domain.reply.entity.Reply;
 import jakarta.persistence.*;
 import lombok.*;
 
 import java.util.Date;
+import java.util.List;
 
 @Getter
 @Setter
@@ -39,5 +41,7 @@ public class Board {
     private int likeCount; // 좋아요
     @ManyToOne
     private Member author;
+    @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
+    private List<Reply> replyList;
 
 }
