@@ -5,7 +5,7 @@ import com.example.gameverse2.domain.member.entity.Member;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -20,9 +20,9 @@ public class Reply {
     @Column(columnDefinition = "TEXT")
     private String replyContent; //댓글 내용
     @Column
-    private Date replyDate; //작성일
+    private LocalDateTime  replyDate; //작성일
     @Column
-    private Date replyUpdate; //수정일
+    private LocalDateTime replyUpdate; //수정일
     @Column
     private char replyDelete; //삭제여부
     @ManyToOne

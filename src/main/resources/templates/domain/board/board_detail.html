@@ -7,14 +7,31 @@
     <body>
     <h1 th:text="${board.boardTitle}"></h1>
     <div th:text="${board.boardText}"></div>
-    <h5 th:text="|${#lists.size(board.replyList)}개의 답변이 있습니다.|"></h5>
-    <div>
-        <ul>
-            <li th:each="reply : ${board.replyList}" th:text="${reply.replyContent}"></li>
-        </ul>
+    <div class="mb-2">
+        <span th:if="${board.author != null}" th:text="${board.author.nickName}"></span>
     </div>
-        <form th:action="@{|/reply/create/${board.boardNo}|}" method="post">
-        <textarea name="replyContent" id="replyContent" rows="15"></textarea>
+  <div th:text="${#temporals.format(board.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+
+<!--답변갯수표시-->
+    <h5 th:text="|${#lists.size(board.replyList)}개의 댓글이 있습니다.|"></h5>
+<!--    댓글 반복 -->
+    <div class="card my-3" th:each="reply : ${board.replyList}">
+        <div class="card-body">
+            <div class="card-text" style="white-space: pre-line;" th:text="${reply.replyContent}"></div>
+            <div class="d-flex justify-content-end">
+                <div class="badge bg-light text-dark p-2 text-start">
+                    <div class="mb-2">
+                        <span th:if="${reply.author != null}" th:text="${reply.author.nickName}"></span>
+                    </div>
+                    <div th:text="${#temporals.format(reply.replyDate, 'yyyy-MM-dd HH:mm')}"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+<!--    답변 등록-->
+        <form th:action="@{|/reply/create/${board.boardNo}|}"  method="post">
+            <textarea name="replyContent" id="replyContent" rows="15"></textarea>
         <input type="submit" value="답변등록">
     </form>
     </body>

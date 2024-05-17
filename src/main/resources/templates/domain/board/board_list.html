@@ -17,7 +17,7 @@
             <td>
                 <a th:href="@{|/board/detail/${board.boardNo}|}" th:text="${board.boardTitle}"></a>
             </td>
-            <td th:text="${board.createDate}"></td>
+            <td th:text="${#temporals.format(board.createDate, 'yyyy-MM-dd HH:mm')}"> </td>
         </tr>
         </tbody>
     </table>

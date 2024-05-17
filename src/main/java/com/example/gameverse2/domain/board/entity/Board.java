@@ -5,7 +5,7 @@ import com.example.gameverse2.domain.reply.entity.Reply;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Getter
@@ -28,11 +28,11 @@ public class Board {
     @Column
     private String boardText; // 내용
     @Column
-    private Date createDate; //작성일
+    private LocalDateTime createDate; //작성일
     @Column
-    private Date deleteDate; //삭제날짜
+    private LocalDateTime  deleteDate; //삭제날짜
     @Column
-    private Date updateDate; //수정날짜
+    private LocalDateTime  updateDate; //수정날짜
     @Column
     private int readCount;  //조회수
     @Column

@@ -8,7 +8,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.Optional;
 
 @RequiredArgsConstructor
@@ -25,7 +25,7 @@ public class MemberService {
         member.setNickName(nickName);
         member.setRole(Role.MEMBER);
         member.setDeleteFl('N');
-        member.setCreateDate(new Date());
+        member.setCreateDate(LocalDateTime.now());
         member.setPassword(passwordEncoder.encode(password));
         this.memberRepository.save(member);
         return member;

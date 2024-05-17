@@ -8,7 +8,7 @@ import com.example.gameverse2.domain.member.entity.Member;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -26,7 +26,7 @@ public class BoardService {
         board.setTag(tag);
         board.setBoardTitle(boardTitle);
         board.setBoardText(boardText);
-        board.setCreateDate(new Date());
+        board.setCreateDate(LocalDateTime.now());
         board.setLikeCount(0);
         board.setReadCount(0);
         board.setBoardDelete('N');

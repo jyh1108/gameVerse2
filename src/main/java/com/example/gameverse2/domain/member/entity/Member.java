@@ -3,7 +3,7 @@ package com.example.gameverse2.domain.member.entity;
 import jakarta.persistence.*;
 import lombok.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 
 @Getter
 @Setter
@@ -18,9 +18,9 @@ public class Member {
     @Column(unique = true)
     private String loginId;
     private String password;
-    private Date createDate;
-    private Date deleteDate;
-    private Date updateDate;
+    private LocalDateTime  createDate;
+    private LocalDateTime deleteDate;
+    private LocalDateTime  updateDate;
     @Column
     private Role role;
     @Column(unique = true)
