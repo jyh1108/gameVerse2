@@ -3,36 +3,62 @@
 <head>
     <meta charset="UTF-8">
     <title>상세보기</title>
+    <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <style>
+        .content-container {
+            margin: 20px auto;
+            max-width: 800px;
+        }
+
+        .reply-form textarea {
+            width: 100%;
+            resize: none;
+        }
+    </style>
 </head>
-    <body>
-    <h1 th:text="${board.boardTitle}"></h1>
-    <div th:text="${board.boardText}"></div>
+<body>
+<div class="container content-container">
+    <h1 class="my-4" th:text="${board.boardTitle}"></h1>
+    <div class="mb-4" th:text="${board.boardText}"></div>
     <div class="mb-2">
         <span th:if="${board.author != null}" th:text="${board.author.nickName}"></span>
     </div>
-  <div th:text="${#temporals.format(board.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+    <div class="text-muted" th:text="${#temporals.format(board.createDate, 'yyyy-MM-dd HH:mm')}"></div>
+    <div class="my-3">
+        <a th:href="@{|/board/modify/${board.boardNo}|}" class="btn btn-sm btn-outline-secondary"
+           sec:authorize="isAuthenticated()"
+           th:if="${board.author != null and #authentication.getPrincipal().getUsername() == board.author.loginId}"
+           th:text="수정"></a>
+    </div>
+    <!-- 답변 갯수 표시 -->
+    <h5 class="mt-4" th:text="|${#lists.size(board.replyList)}개의 댓글이 있습니다.|"></h5>
 
-<!--답변갯수표시-->
-    <h5 th:text="|${#lists.size(board.replyList)}개의 댓글이 있습니다.|"></h5>
-<!--    댓글 반복 -->
-    <div class="card my-3" th:each="reply : ${board.replyList}">
+    <!-- 댓글 반복 -->
+    <div th:each="reply : ${board.replyList}" class="card my-3">
         <div class="card-body">
             <div class="card-text" style="white-space: pre-line;" th:text="${reply.replyContent}"></div>
-            <div class="d-flex justify-content-end">
-                <div class="badge bg-light text-dark p-2 text-start">
-                    <div class="mb-2">
-                        <span th:if="${reply.author != null}" th:text="${reply.author.nickName}"></span>
-                    </div>
-                    <div th:text="${#temporals.format(reply.replyDate, 'yyyy-MM-dd HH:mm')}"></div>
-                </div>
+            <div class="d-flex justify-content-between mt-2">
+                <span class="font-weight-bold" th:if="${reply.author != null}"
+                      th:text="${reply.author.nickName}"></span>
+                <span class="text-muted" th:text="${#temporals.format(reply.replyDate, 'yyyy-MM-dd HH:mm')}"></span>
             </div>
         </div>
     </div>
 
-<!--    답변 등록-->
-        <form th:action="@{|/reply/create/${board.boardNo}|}"  method="post">
-            <textarea name="replyContent" id="replyContent" rows="15"></textarea>
-        <input type="submit" value="답변등록">
-    </form>
-    </body>
+    <!-- 답변 등록 -->
+    <div class="reply-form mt-4">
+        <form th:action="@{|/reply/create/${board.boardNo}|}" method="post">
+            <div class="form-group">
+                <label for="replyContent">댓글 작성</label>
+                <textarea class="form-control" name="replyContent" id="replyContent" rows="5"></textarea>
+            </div>
+            <button type="submit" class="btn btn-primary">답변등록</button>
+        </form>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+</body>
 </html>

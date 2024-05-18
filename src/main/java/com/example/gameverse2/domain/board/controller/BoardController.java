@@ -8,11 +8,16 @@ import com.example.gameverse2.domain.member.entity.Member;
 import com.example.gameverse2.domain.member.service.MemberService;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.*;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.security.Principal;
 import java.util.List;
@@ -58,4 +63,30 @@ public class BoardController {
         return "domain/board/board_detail";
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/modify/{boardNo}")
+    public String boardModify(BoardDto boardDto, @PathVariable("boardNo") Long boardNo, Principal principal) {
+        Board board = this.boardService.getBoard(boardNo);
+        if(!board.getAuthor().getLoginId().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+        boardDto.setBoardTitle(board.getBoardTitle());
+        boardDto.setBoardText(board.getBoardText());
+        return "domain/board/board_form";
+    }
+
+    @PreAuthorize("isAuthenticated()")
+    @PostMapping("/modify/{boardNo}")
+    public String boardModify(@Valid BoardDto boardDto, BindingResult bindingResult,
+                                 Principal principal, @PathVariable("boardNo") Long boardNo) {
+        if (bindingResult.hasErrors()) {
+            return "domain/board/board_form";
+        }
+        Board board = this.boardService.getBoard(boardNo);
+        if (!board.getAuthor().getLoginId().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
+        }
+        this.boardService.modify(board, boardDto.getBoardTitle(), boardDto.getBoardText());
+        return String.format("redirect:/board/detail/%s", boardNo);
+    }
 }

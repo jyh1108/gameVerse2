@@ -47,4 +47,11 @@ public class BoardService {
             throw new DataNotFoundException("board not found");
         }
     }
+
+    public void modify(Board board, String boardTitle, String boardText) {
+        board.setBoardTitle(boardTitle);
+        board.setBoardText(boardText);
+        board.setUpdateDate(LocalDateTime.now());
+        this.boardRepository.save(board);
+    }
 }
