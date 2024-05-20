@@ -3,39 +3,44 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--    <link rel="stylesheet"  href="/css/domain/member/sd.css">-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <title th:text="${boardDto.boardTitle} == null ? '게시글 등록하기' : '게시글 수정하기'">게시글</title>
+    <title>게시글 등록하기</title>
 </head>
 <body>
 <div class="container">
-    <h5 class="my-3 border-bottom pb-2" th:text="${boardDto.boardTitle} == null ? '질문등록' : '게시글 수정'"></h5>
+    <h5 class="my-3 border-bottom pb-2">질문등록</h5>
 
-    <form th:object="${boardDto}" th:action="@{${boardDto.boardTitle} == null ? '/board/create' : '/board/modify/' + ${boardNo}}" method="post">
+    <form th:object="${boardDto}" method="post">
         <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+        <!-- <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}"> -->
+        <!--     <div th:each="err : ${#fields.allErrors()}" th:text="${err}"/> -->
+        <!-- </div> -->
 
         <div class="mb-3">
             <label for="boardCode" class="form-label">코드</label>
-            <select name="boardCode" id="boardCode" class="form-select" th:field="*{boardCode}">
-                <option value="1" th:selected="${boardDto.boardCode == 1}">롤</option>
-                <option value="2" th:selected="${boardDto.boardCode == 2}">발로란트</option>
-                <option value="3" th:selected="${boardDto.boardCode == 3}">오버워치2</option>
+            <select name="boardCode" id="boardCode" class="form-select">
+                <option value="1">롤</option>
+                <option value="2">발로란트</option>
+                <option value="3">오버워치2</option>
             </select>
         </div>
         <div class="mb-3">
             <label for="tag" class="form-label">태그</label>
-            <select name="tag" id="tag" class="form-select" th:field="*{tag}">
-                <option value="1" th:selected="${boardDto.tag == 1}">자유</option>
-                <option value="2" th:selected="${boardDto.tag == 2}">Tip</option>
-                <option value="3" th:selected="${boardDto.tag == 3}">질문</option>
+            <select name="tag" id="tag" class="form-select">
+                <option value="1">자유</option>
+                <option value="2">Tip</option>
+                <option value="3">질문</option>
             </select>
         </div>
         <div class="mb-3">
             <label for="boardTitle" class="form-label">제목</label>
-            <input type="text" name="boardTitle" id="boardTitle" class="form-control" th:field="*{boardTitle}">
+            <input type="text" name="boardTitle" id="boardTitle" class="form-control">
         </div>
         <div class="mb-3">
             <label for="boardText" class="form-label">내용</label>
-            <textarea name="boardText" id="boardText" class="form-control" rows="10" th:field="*{boardText}"></textarea>
+            <textarea name="boardText" id="boardText" class="form-control" rows="10"></textarea>
         </div>
         <input type="submit" value="저장하기" class="btn btn-primary my-2">
     </form>

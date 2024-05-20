@@ -72,6 +72,8 @@ public class BoardController {
         }
         boardDto.setBoardTitle(board.getBoardTitle());
         boardDto.setBoardText(board.getBoardText());
+        boardDto.setBoardCode(board.getBoardCode());
+        boardDto.setTag(board.getTag());
         return "domain/board/board_form";
     }
 
@@ -89,4 +91,16 @@ public class BoardController {
         this.boardService.modify(board, boardDto.getBoardTitle(), boardDto.getBoardText());
         return String.format("redirect:/board/detail/%s", boardNo);
     }
+
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/delete/{boardNo}")
+    public String questionDelete(Principal principal, @PathVariable("boardNo") Long boardNo) {
+        Board board = this.boardService.getBoard(boardNo);
+        if (!board.getAuthor().getLoginId().equals(principal.getName())) {
+            throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
+        }
+        this.boardService.delete(board);
+        return "redirect:/";
+    }
+
 }

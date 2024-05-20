@@ -29,6 +29,10 @@
            sec:authorize="isAuthenticated()"
            th:if="${board.author != null and #authentication.getPrincipal().getUsername() == board.author.loginId}"
            th:text="수정"></a>
+        <a href="javascript:void(0);" th:data-uri="@{|/board/delete/${board.boardNo}|}"
+           class="delete btn btn-sm btn-outline-secondary" sec:authorize="isAuthenticated()"
+           th:if="${board.author != null and #authentication.getPrincipal().getUsername() == board.author.loginId}"
+           th:text="삭제"></a>
     </div>
     <!-- 답변 갯수 표시 -->
     <h5 class="mt-4" th:text="|${#lists.size(board.replyList)}개의 댓글이 있습니다.|"></h5>
@@ -60,5 +64,15 @@
 <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"></script>
+<script  type='text/javascript'>
+    const delete_elements = document.getElementsByClassName("delete");
+    Array.from(delete_elements).forEach(function(element) {
+        element.addEventListener('click', function() {
+            if(confirm("정말로 삭제하시겠습니까?")) {
+                location.href = this.dataset.uri;
+            };
+        });
+    });
+</script>
 </body>
 </html>
