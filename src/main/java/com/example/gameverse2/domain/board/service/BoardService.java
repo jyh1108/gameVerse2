@@ -36,7 +36,7 @@ public class BoardService {
     }
 
     public List<Board> getList() {
-        return this.boardRepository.findAll();
+        return this.boardRepository.findAllActiveBoards();
     }
 
     public Board getBoard(Long boardNo){
@@ -57,6 +57,8 @@ public class BoardService {
 
 
     public void delete(Board board) {
-        this.boardRepository.delete(board);
+        board.setDeleteDate(LocalDateTime.now());
+        board.setBoardDelete('Y');
+        this.boardRepository.save(board);
     }
 }
