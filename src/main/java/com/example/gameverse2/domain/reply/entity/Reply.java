@@ -23,8 +23,6 @@ public class Reply {
     private LocalDateTime  replyDate; //작성일
     @Column
     private LocalDateTime replyUpdate; //수정일
-    @Column
-    private char replyDelete; //삭제여부
     @ManyToOne
     private Member author; //작성자
     @ManyToOne
