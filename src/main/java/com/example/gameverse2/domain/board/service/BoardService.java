@@ -61,4 +61,12 @@ public class BoardService {
         board.setBoardDelete('Y');
         this.boardRepository.save(board);
     }
+
+    public void vote(Board board, Member member) {
+        if (!board.getVoter().contains(member)) {
+            board.getVoter().add(member);
+            board.setLikeCount(board.getLikeCount() + 1); // likeCount를 증가시킵니다.
+            this.boardRepository.save(board);
+        }
+    }
 }

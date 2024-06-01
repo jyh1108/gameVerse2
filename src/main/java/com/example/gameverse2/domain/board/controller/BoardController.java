@@ -103,4 +103,12 @@ public class BoardController {
         return "redirect:/";
     }
 
+    @PreAuthorize("isAuthenticated()")
+    @GetMapping("/vote/{boardNo}")
+    public String questionVote(Principal principal, @PathVariable("boardNo") Long boardNo) {
+        Board board = this.boardService.getBoard(boardNo);
+        Member member = this.memberService.getMember(principal.getName());
+        this.boardService.vote(board, member);
+        return String.format("redirect:/board/detail/%s", boardNo);
+    }
 }

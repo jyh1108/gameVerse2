@@ -7,6 +7,7 @@ import lombok.*;
 
 import java.time.LocalDateTime;
 import java.util.List;
+import java.util.Set;
 
 @Getter
 @Setter
@@ -43,5 +44,6 @@ public class Board {
     private Member author;
     @OneToMany(mappedBy = "board", cascade = CascadeType.REMOVE)
     private List<Reply> replyList;
-
+    @ManyToMany
+    Set<Member> voter;
 }
