@@ -40,7 +40,6 @@ public class ReplyService {
         reply.setReplyUpdate(LocalDateTime.now());
         this.replyRepository.save(reply);
     }
-    //서비스만 작성해놓은상태
 
 
     public void delete(Reply reply) {
