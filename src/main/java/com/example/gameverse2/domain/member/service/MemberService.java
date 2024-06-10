@@ -39,4 +39,10 @@ public class MemberService {
             throw new DataNotFoundException("Member not found");
         }
     }
+
+
+    // 중복 확인 메서드 추가
+    public boolean isLoginIdAvailable(String loginId) {
+        return !memberRepository.existsByLoginId(loginId);
+    }
 }

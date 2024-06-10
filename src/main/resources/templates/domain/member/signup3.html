@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <!--    <link rel="stylesheet"  href="/css/domain/member/sd.css">-->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>회원가입</title>
+</head>
+<body>
+<div class="container my-3">
+    <div class="my-3 border-bottom">
+        <div>
+            <h4>회원가입</h4>
+        </div>
+    </div>
+    <form action="/member/signup" th:object="${memberCreateForm}" method="post">
+        <!-- 에러 메시지 표시 -->
+        <div th:if="${#fields.hasErrors('loginId')}" class="error-message">
+            <p th:text="${#fields.errors('loginId')}"/>
+        </div>
+        <div th:if="${#fields.hasErrors('nickName')}" class="error-message">
+            <p th:text="${#fields.errors('nickName')}"/>
+        </div>
+        <div th:if="${#fields.hasErrors('password1')}" class="error-message">
+            <p th:text="${#fields.errors('password1')}"/>
+        </div>
+        <div th:if="${#fields.hasErrors('password2')}" class="error-message">
+            <p th:text="${#fields.errors('password2')}"/>
+        </div>
+        <div th:if="${#fields.hasErrors('email')}" class="error-message">
+            <p th:text="${#fields.errors('email')}"/>
+        </div>
+        <!-- 이 부분은 백엔드에서 에러 메시지를 받아와서 표시할 수 있도록 처리해야 합니다. -->
+        <div class="mb-3">
+            <label for="loginId" class="form-label">사용자 ID</label>
+            <input type="text" id="loginId" name="loginId" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="password1" class="form-label">비밀번호</label>
+            <input type="password" id="password1" name="password1" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="password2" class="form-label">비밀번호 확인</label>
+            <input type="password" id="password2" name="password2" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="email" class="form-label">이메일</label>
+            <input type="email" id="email" name="email" class="form-control" required>
+        </div>
+        <div class="mb-3">
+            <label for="nickName" class="form-label">닉네임</label>
+            <input type="text" id="nickName" name="nickName" class="form-control" required>
+        </div>
+        <button id="dw" type="submit" class="btn btn-primary">회원가입</button>
+    </form>
+</div>
+</body>
+</html>

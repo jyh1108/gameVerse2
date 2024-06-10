@@ -9,9 +9,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 @RequiredArgsConstructor
 @Controller
@@ -42,7 +40,7 @@ public class MemberController {
                         memberCreateForm.getPassword1(),memberCreateForm.getEmail(), memberCreateForm.getNickName());
             }catch (DataIntegrityViolationException e){
                 e.printStackTrace();
-                bindingResult.reject("signupFailed","이미 등록된 이메일 입니다.");
+                bindingResult.reject("signupFailed","이미 등록된 사용자 입니다.");
                 return "domain/member/signup";
             }catch (Exception e){
                 e.printStackTrace();
@@ -55,6 +53,14 @@ public class MemberController {
     @GetMapping("/login")
     public String login() {
         return "domain/member/login_form";
+    }
+
+    // 중복 확인 엔드포인트 추가
+    @GetMapping("/checkId")
+    @ResponseBody
+    public String checkId(@RequestParam String loginId) {
+        boolean isAvailable = memberService.isLoginIdAvailable(loginId);
+        return isAvailable ? "OK" : "DUPLICATE";
     }
 
 }
