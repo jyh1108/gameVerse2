@@ -7,6 +7,7 @@ import com.example.gameverse2.domain.member.entity.Role;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
@@ -16,9 +17,9 @@ import java.util.Optional;
 public class MemberService {
 
     private final MemberRepository memberRepository;
-    private  final PasswordEncoder passwordEncoder;
+    private final PasswordEncoder passwordEncoder;
 
-    public Member create(String loginId, String password, String email, String nickName){
+    public Member create(String loginId, String password, String email, String nickName) {
         Member member = new Member();
         member.setLoginId(loginId);
         member.setEmail(email);
@@ -49,5 +50,25 @@ public class MemberService {
     public String findIdByEmail(String email) {
         Member member = memberRepository.findByEmail(email);
         return member != null ? member.getLoginId() : null;
+    }
+
+    public boolean verifyMember(String loginId, String email) {
+        Member member = memberRepository.findByLoginIdAndEmail(loginId, email);
+        return member != null;
+    }
+
+    @Transactional
+    public void resetPassword(String loginId, String email, String newPassword) {
+        // 새 비밀번호를 암호화
+        String encryptedPassword = passwordEncoder.encode(newPassword);
+
+        // 회원 정보 조회
+        Member member = memberRepository.findByLoginIdAndEmail(loginId, email);
+        if (member == null) {
+            throw new DataNotFoundException("User not found with loginId: " + loginId + " and email: " + email);
+        }
+
+        // 비밀번호 업데이트
+        member.setPassword(encryptedPassword);
     }
 }

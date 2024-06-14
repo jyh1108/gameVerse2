@@ -80,4 +80,40 @@ public class MemberController {
         String loginId = memberService.findIdByEmail(email);
         return loginId != null ? loginId : "";
     }
+
+    @GetMapping("/findPassword")
+    public String findPassword(){
+        return "domain/member/findPassword";
+    }
+
+    @PostMapping("/findPassword")
+    public String findPassword(@RequestParam String loginId, @RequestParam String email, Model model) {
+        boolean isMatched = memberService.verifyMember(loginId, email);
+        if (isMatched) {
+            model.addAttribute("loginId", loginId);
+            model.addAttribute("email", email);
+            return "domain/member/reset_password";
+        } else {
+            model.addAttribute("errorMessage", "아이디와 이메일이 일치하지 않습니다.");
+            return "domain/member/findPassword";
+        }
+    }
+    @GetMapping("/resetPassword")
+    public String resetPassword(@RequestParam String loginId, @RequestParam String email, Model model) {
+        model.addAttribute("loginId", loginId);
+        model.addAttribute("email", email);
+        return "domain/member/reset_password";
+    }
+
+    @PostMapping("/resetPassword")
+    public String resetPassword(@RequestParam String loginId, @RequestParam String email,
+                                @RequestParam String newPassword, Model model) {
+        try {
+            memberService.resetPassword(loginId, email, newPassword);
+                return "redirect:/member/login";
+        } catch (Exception e) {
+            model.addAttribute("errorMessage", "비밀번호 재설정 중 오류가 발생했습니다.");
+            return "domain/member/reset_password";
+        }
+    }
 }

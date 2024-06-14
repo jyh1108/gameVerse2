@@ -20,25 +20,27 @@ public class SecurityConfig {
     @Bean
     SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http
-                .authorizeHttpRequests((authorizeHttpRequests) -> authorizeHttpRequests
+                .authorizeHttpRequests(authorizeHttpRequests -> authorizeHttpRequests
                         .requestMatchers(new AntPathRequestMatcher("/**")).permitAll())
-                .csrf((csrf) -> csrf
-                        .ignoringRequestMatchers(new AntPathRequestMatcher("/h2-console/**"),
+                .csrf(csrf -> csrf
+                        .ignoringRequestMatchers(
+                                new AntPathRequestMatcher("/h2-console/**"),
                                 new AntPathRequestMatcher("/member/signup"),
-                                new AntPathRequestMatcher("/member/login")))
-                .headers((headers) -> headers
+                                new AntPathRequestMatcher("/member/login"),
+                                new AntPathRequestMatcher("/member/findPassword"),
+                                new AntPathRequestMatcher("/member/resetPassword")))
+                .headers(headers -> headers
                         .addHeaderWriter(new XFrameOptionsHeaderWriter(
                                 XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
-                .formLogin((formLogin) -> formLogin
+                .formLogin(formLogin -> formLogin
                         .loginPage("/member/login")
                         .usernameParameter("loginId")
                         .passwordParameter("password")
                         .defaultSuccessUrl("/"))
-                .logout((logout) -> logout
+                .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
                         .logoutSuccessUrl("/")
-                        .invalidateHttpSession(true))
-        ;
+                        .invalidateHttpSession(true));
         return http.build();
     }
 
