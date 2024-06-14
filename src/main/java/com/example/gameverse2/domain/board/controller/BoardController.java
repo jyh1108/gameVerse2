@@ -95,7 +95,7 @@ public class BoardController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/delete/{boardNo}")
-    public String questionDelete(Principal principal, @PathVariable("boardNo") Long boardNo) {
+    public String boardDelete(Principal principal, @PathVariable("boardNo") Long boardNo) {
         Board board = this.boardService.getBoard(boardNo);
         if (!board.getAuthor().getLoginId().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "삭제권한이 없습니다.");
@@ -106,10 +106,13 @@ public class BoardController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/vote/{boardNo}")
-    public String questionVote(Principal principal, @PathVariable("boardNo") Long boardNo) {
+    public String boardVote(Principal principal, @PathVariable("boardNo") Long boardNo) {
         Board board = this.boardService.getBoard(boardNo);
         Member member = this.memberService.getMember(principal.getName());
         this.boardService.vote(board, member);
         return String.format("redirect:/board/detail/%s", boardNo);
     }
+
+
+
 }

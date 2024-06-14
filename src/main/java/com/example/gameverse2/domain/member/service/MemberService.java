@@ -45,4 +45,9 @@ public class MemberService {
     public boolean isLoginIdAvailable(String loginId) {
         return !memberRepository.existsByLoginId(loginId);
     }
+
+    public String findIdByEmail(String email) {
+        Member member = memberRepository.findByEmail(email);
+        return member != null ? member.getLoginId() : null;
+    }
 }

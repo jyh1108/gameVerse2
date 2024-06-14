@@ -12,10 +12,6 @@ if (isLoginAble === false) {
 
 
 
-// ID/PW 찾기 버튼 클릭 시 페이지 전환 기능
 
-$("#findAccount").on("click", function () {
-    location.href = 'findAccount.html';
-})
 
 
