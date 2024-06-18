@@ -2,15 +2,79 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Main Page</title>
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <link rel="stylesheet" href="/css/main.css">
+    <style>
+        .header {
+            background-color: #f8f9fa;
+            padding: 20px;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+        .content {
+            margin: 20px;
+        }
+        .btn-custom {
+            margin-bottom: 10px;
+        }
+        .board-section {
+            margin-top: 40px;
+        }
+        .board-item {
+            border: 1px solid #dee2e6;
+            border-radius: 5px;
+            padding: 15px;
+            margin-bottom: 20px;
+            background-color: #fff;
+        }
+        .board-title {
+            font-size: 1.2em;
+            font-weight: bold;
+        }
+    </style>
 </head>
 <body>
-<button class="btn1"> 메인페이지 입니다</button>
-<a class="nav-link" th:href="@{/member/signup}">회원가입</a>
-<a class="nav-link" sec:authorize="isAnonymous()" th:href="@{/member/login}">로그인</a>
-<a class="nav-link" sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a>
-<a th:href="@{/board/create}" class="btn btn-primary">개시글 등록하기</a>
-<a th:href="@{/board/list}" class="btn btn-primary">개시글 목록</a>
+
+<div class="header">
+    <h1>GameVerse2</h1>
+    <button class="btn btn-primary btn-custom">메인페이지 입니다</button>
+    <a class="btn btn-secondary btn-custom" th:href="@{/member/signup}">회원가입</a>
+    <a class="btn btn-secondary btn-custom" sec:authorize="isAnonymous()" th:href="@{/member/login}">로그인</a>
+    <a class="btn btn-secondary btn-custom" sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a>
+    <a class="btn btn-primary btn-custom" th:href="@{/board/create}">게시글 등록하기</a>
+    <a class="btn btn-primary btn-custom" th:href="@{/board/list}">게시글 목록</a>
+</div>
+
+<div class="content">
+    <div class="board-section">
+        <h2>추천수가 가장 많은 게시글 - 롤</h2>
+        <div th:each="board : ${code1Top5}" class="board-item">
+            <div class="board-title" th:text="${board.boardTitle}"></div>
+            <div class="board-content" th:text="${board.boardText}"></div>
+            <div class="board-recommendations">추천수: <span th:text="${board.likeCount}"></span></div>
+        </div>
+    </div>
+    <div class="board-section">
+        <h2>추천수가 가장 많은 게시글 - 발로란트</h2>
+        <div th:each="board : ${code2Top5}" class="board-item">
+            <div class="board-title" th:text="${board.boardTitle}"></div>
+            <div class="board-content" th:text="${board.boardText}"></div>
+            <div class="board-recommendations">추천수: <span th:text="${board.likeCount}"></span></div>
+        </div>
+    </div>
+    <div class="board-section">
+        <h2>추천수가 가장 많은 게시글 - 오버워치</h2>
+        <div th:each="board : ${code3Top5}" class="board-item">
+            <div class="board-title" th:text="${board.boardTitle}"></div>
+            <div class="board-content" th:text="${board.boardText}"></div>
+            <div class="board-recommendations">추천수: <span th:text="${board.likeCount}"></span></div>
+        </div>
+    </div>
+</div>
+
+<script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
 </html>

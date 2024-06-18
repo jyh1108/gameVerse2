@@ -8,6 +8,8 @@ import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import java.util.List;
+
 public interface BoardRepository extends JpaRepository<Board, Long> {
 
     @Query("SELECT b FROM Board b WHERE b.boardDelete = 'N'")
@@ -28,4 +30,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
             + "   or a.replyContent like %:kw% "
             + "   or u2.nickName like %:kw% ")
     Page<Board> findAllByKeyword(@Param("kw") String kw, Pageable pageable);
+
+    List<Board> findTop5ByBoardCodeOrderByLikeCountDesc(String boardCode);
 }
