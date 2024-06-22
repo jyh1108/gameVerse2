@@ -103,4 +103,9 @@ public class BoardService {
     public List<Board> getTop5BoardsByCode(String boardCode) {
         return boardRepository.findTop5ByBoardCodeOrderByLikeCountDesc(boardCode);
     }
+
+    public List<Board> getLatestTop5Boards() {
+        return boardRepository.findTop5ByOrderByCreateDateDesc();
+    }
+
 }

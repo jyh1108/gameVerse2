@@ -113,5 +113,4 @@ public class BoardController {
         return String.format("redirect:/board/detail/%s", boardNo);
     }
 
-
 }

@@ -32,4 +32,6 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
     Page<Board> findAllByKeyword(@Param("kw") String kw, Pageable pageable);
 
     List<Board> findTop5ByBoardCodeOrderByLikeCountDesc(String boardCode);
+
+    List<Board> findTop5ByOrderByCreateDateDesc();  // 최신글 5개를 가져오는 메서드
 }

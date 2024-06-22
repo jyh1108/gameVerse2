@@ -15,12 +15,14 @@
         }
         .content {
             margin: 20px;
+            display: flex;
+            justify-content: center;
         }
         .btn-custom {
             margin-bottom: 10px;
         }
         .board-section {
-            margin-top: 40px;
+            margin: 0 20px;
         }
         .board-item {
             border: 1px solid #dee2e6;
@@ -28,19 +30,35 @@
             padding: 15px;
             margin-bottom: 20px;
             background-color: #fff;
+            width: 300px; /* 고정된 가로 길이 */
+            height: 150px; /* 고정된 세로 길이 */
+            overflow: hidden; /* 텍스트가 넘칠 경우 숨기기 */
         }
         .board-title {
             font-size: 1.2em;
             font-weight: bold;
+        }
+        .ad-space {
+            background-color: #e0e0e0;
+            width: 200px;
+            height: 100%;
+            margin: 0 10px;
         }
     </style>
 </head>
 <body>
 
 <div class="header">
-    <h1>GameVerse2</h1>
-    <button class="btn btn-primary btn-custom">메인페이지 입니다</button>
-    <a class="btn btn-secondary btn-custom" th:href="@{/member/signup}">회원가입</a>
+    <h1>GameVerse</h1>
+    <div class="btn-group">
+        <button class="btn btn-primary btn-custom dropdown-toggle" data-bs-toggle="dropdown" aria-expanded="false">게시글</button>
+        <ul class="dropdown-menu">
+            <li><a class="dropdown-item" href="#lol-section">롤</a></li>
+            <li><a class="dropdown-item" href="#overwatch-section">오버워치</a></li>
+            <li><a class="dropdown-item" href="#valorant-section">발로란트</a></li>
+        </ul>
+    </div>
+    <a class="btn btn-secondary btn-custom" sec:authorize="isAnonymous()" th:href="@{/member/signup}">회원가입</a>
     <a class="btn btn-secondary btn-custom" sec:authorize="isAnonymous()" th:href="@{/member/login}">로그인</a>
     <a class="btn btn-secondary btn-custom" sec:authorize="isAuthenticated()" th:href="@{/member/logout}">로그아웃</a>
     <a class="btn btn-primary btn-custom" th:href="@{/board/create}">게시글 등록하기</a>
@@ -48,30 +66,57 @@
 </div>
 
 <div class="content">
-    <div class="board-section">
-        <h2>추천수가 가장 많은 게시글 - 롤</h2>
-        <div th:each="board : ${code1Top5}" class="board-item">
-            <div class="board-title" th:text="${board.boardTitle}"></div>
-            <div class="board-content" th:text="${board.boardText}"></div>
-            <div class="board-recommendations">추천수: <span th:text="${board.likeCount}"></span></div>
+    <div class="ad-space"></div>
+
+    <div>
+        <div class="board-section" id="lol-section">
+            <h2>인기글 - 롤</h2>
+            <div th:each="board : ${code1Top5}" class="board-item">
+                <div class="board-title">
+                    <a th:href="@{/board/detail/{id}(id=${board.boardNo})}" th:text="${board.boardTitle}"></a>
+                </div>
+                <div class="board-content" th:text="${board.boardText}"></div>
+                <div class="board-recommendations">추천수: <span th:text="${board.likeCount}"></span></div>
+            </div>
+        </div>
+
+        <div class="board-section" id="overwatch-section">
+            <h2>인기글 - 오버워치</h2>
+            <div th:each="board : ${code3Top5}" class="board-item">
+                <div class="board-title">
+                    <a th:href="@{/board/detail/{id}(id=${board.boardNo})}" th:text="${board.boardTitle}"></a>
+                </div>
+                <div class="board-content" th:text="${board.boardText}"></div>
+                <div class="board-recommendations">추천수: <span th:text="${board.likeCount}"></span></div>
+            </div>
         </div>
     </div>
-    <div class="board-section">
-        <h2>추천수가 가장 많은 게시글 - 발로란트</h2>
-        <div th:each="board : ${code2Top5}" class="board-item">
-            <div class="board-title" th:text="${board.boardTitle}"></div>
-            <div class="board-content" th:text="${board.boardText}"></div>
-            <div class="board-recommendations">추천수: <span th:text="${board.likeCount}"></span></div>
+
+    <div>
+        <div class="board-section" id="valorant-section">
+            <h2>인기글 - 발로란트</h2>
+            <div th:each="board : ${code2Top5}" class="board-item">
+                <div class="board-title">
+                    <a th:href="@{/board/detail/{id}(id=${board.boardNo})}" th:text="${board.boardTitle}"></a>
+                </div>
+                <div class="board-content" th:text="${board.boardText}"></div>
+                <div class="board-recommendations">추천수: <span th:text="${board.likeCount}"></span></div>
+            </div>
+        </div>
+
+        <div class="board-section" id="latest-section">
+            <h2>최신 글</h2>
+            <div th:each="board : ${latestBoards}" class="board-item">
+                <div class="board-title">
+                    <a th:href="@{/board/detail/{id}(id=${board.boardNo})}" th:text="${board.boardTitle}"></a>
+                </div>
+                <div class="board-content" th:text="${board.boardText}"></div>
+                <div class="board-recommendations">추천수: <span th:text="${board.likeCount}"></span></div>
+            </div>
         </div>
     </div>
-    <div class="board-section">
-        <h2>추천수가 가장 많은 게시글 - 오버워치</h2>
-        <div th:each="board : ${code3Top5}" class="board-item">
-            <div class="board-title" th:text="${board.boardTitle}"></div>
-            <div class="board-content" th:text="${board.boardText}"></div>
-            <div class="board-recommendations">추천수: <span th:text="${board.likeCount}"></span></div>
-        </div>
-    </div>
+
+    <div class="ad-space"></div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.7.1.min.js" integrity="sha256-/JqT3SQfawRcv/BIHPThkBvs0OEvtFFmqPF/lYI/Cxo=" crossorigin="anonymous"></script>
