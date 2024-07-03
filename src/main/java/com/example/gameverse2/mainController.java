@@ -16,9 +16,9 @@ public class mainController {
     private final BoardService boardService;
     @GetMapping("/")
     public String mainPage(Model model) {
-        model.addAttribute("code1Top5", boardService.getTop5BoardsByCode("1")); // 롤
-        model.addAttribute("code2Top5", boardService.getTop5BoardsByCode("2")); // 발로란트
-        model.addAttribute("code3Top5", boardService.getTop5BoardsByCode("3")); // 오버워치
+        model.addAttribute("code1Top5", boardService.getTop5BoardsByCode("롤")); // 롤
+        model.addAttribute("code2Top5", boardService.getTop5BoardsByCode("발로란트")); // 발로란트
+        model.addAttribute("code3Top5", boardService.getTop5BoardsByCode("오버워치2")); // 오버워치
 
         List<Board> latestTop5Boards = boardService.getLatestTop5Boards();
         model.addAttribute("latestBoards", latestTop5Boards);

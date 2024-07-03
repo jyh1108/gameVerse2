@@ -108,4 +108,34 @@ public class BoardService {
         return boardRepository.findTop5ByOrderByCreateDateDesc();
     }
 
+    public Page<Board> getBoardList(String kw, String tag, int page) {
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "createDate"));
+
+        // 키워드와 태그를 사용한 검색
+        if (kw != null && !kw.isEmpty() && tag != null && !tag.isEmpty()) {
+            return boardRepository.findByBoardTitleContainingAndTag(kw, tag, pageable);
+        } else if (kw != null && !kw.isEmpty()) {
+            return boardRepository.findByBoardTitleContaining(kw, pageable);
+        } else if (tag != null && !tag.isEmpty()) {
+            return boardRepository.findByTag(tag, pageable);
+        } else {
+            return boardRepository.findAll(pageable);
+        }
+    }
+
+
+
+    public Page<Board> getBoardCodeList(String kw, String tag, int page, String boardCode) {
+        Pageable pageable = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "createDate"));
+
+        if (kw != null && !kw.isEmpty() && tag != null && !tag.isEmpty()) {
+            return boardRepository.findByBoardTitleContainingAndTagAndBoardCode(kw, tag, boardCode, pageable);
+        } else if (kw != null && !kw.isEmpty()) {
+            return boardRepository.findByBoardTitleContainingAndBoardCode(kw, boardCode, pageable);
+        } else if (tag != null && !tag.isEmpty()) {
+            return boardRepository.findByTagAndBoardCode(tag, boardCode, pageable);
+        } else {
+            return boardRepository.findByBoardCode(boardCode, pageable);
+        }
+    }
 }

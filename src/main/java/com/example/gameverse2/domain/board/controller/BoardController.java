@@ -46,16 +46,33 @@ public class BoardController {
     }
 
     @GetMapping("/list")
-    public String list(Model model, @RequestParam(value = "page", defaultValue = "0") int page,
-                       @RequestParam(value = "kw", defaultValue = "") String kw) {
-        Page<Board> paging = this.boardService.getList(page, kw);
+    public String list(@RequestParam(value = "kw", required = false) String kw,
+                       @RequestParam(value = "tag", required = false) String tag,
+                       @RequestParam(value = "page", defaultValue = "0") int page,
+                       Model model) {
+        // 페이지 정보 및 검색 키워드와 태그 필터링 정보로 게시글 목록 가져오기
+        Page<Board> paging = boardService.getBoardList(kw, tag, page);
+
         model.addAttribute("paging", paging);
         model.addAttribute("kw", kw);
-//        List<Board> boardList = this.boardService.getList();
-//        model.addAttribute("board", boardList);
+        model.addAttribute("tag", tag);
+
         return "domain/board/board_list";
     }
+    @GetMapping("/list/{boardCode}")
+    public String booardlist(@RequestParam(value = "kw", required = false) String kw,
+                             @RequestParam(value = "tag", required = false) String tag,
+                             @RequestParam(value = "page", defaultValue = "0") int page,
+                             Model model, @PathVariable String boardCode) {
+        // 페이지 정보 및 검색 키워드와 태그 필터링 정보로 게시글 목록 가져오기
+        Page<Board> paging = boardService.getBoardCodeList(kw, tag, page,boardCode);
 
+        model.addAttribute("paging", paging);
+        model.addAttribute("kw", kw);
+        model.addAttribute("tag", tag);
+
+        return "domain/board/board_List1";
+    }
 
     @GetMapping("/detail/{boardNo}")
     public String detail(Model model, @PathVariable Long boardNo){

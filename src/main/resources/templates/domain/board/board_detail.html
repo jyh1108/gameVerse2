@@ -18,9 +18,10 @@
 </head>
 <body>
 <div class="container content-container">
-    <div class="card-text" th:utext="${@commonUtil.markdown(board.boardText)}"></div>
+
     <h1 class="my-4" th:text="${board.boardTitle}"></h1>
-    <div class="mb-4" th:text="${board.boardText}"></div>
+    <div th:text="${board.tag}">  </div>
+    <div class="card-text" th:utext="${@commonUtil.markdown(board.boardText)}"></div>
     <div th:if="${board.updateDate != null}" class="badge bg-light text-dark p-2 text-start mx-3">
         <div class="mb-2">modified at</div>
         <div th:text="${#temporals.format(board.updateDate, 'yyyy-MM-dd HH:mm')}"></div>
