@@ -116,4 +116,6 @@ public class MemberController {
             return "domain/member/reset_password";
         }
     }
+
+
 }

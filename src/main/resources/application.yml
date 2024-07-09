@@ -3,8 +3,8 @@ spring:
     active: dev
     include: secret
   servlet:
-    multipart.max-file-size: 100MB
     multipart:
+      max-file-size: 100MB
       max-request-size: 128MB
   threads:
     virtual:
@@ -23,3 +23,20 @@ spring:
         format_sql: true
         highlight_sql: true
         use_sql_comments: true
+  security:
+    oauth2:
+      client:
+        registration:
+          kakao:
+            client-id: ec511be6db16cca7e3d10f4dc80bcc8d
+            client-secret: ""  # 카카오는 클라이언트 시크릿을 사용하지 않음
+            redirect-uri: "http://localhost:8080/auth/kakao/callback"
+            authorization-grant-type: authorization_code
+            scope: profile, account_email
+            client-name: Kakao
+        provider:
+          kakao:
+            authorization-uri: https://kauth.kakao.com/oauth/authorize
+            token-uri: https://kauth.kakao.com/oauth/token
+            user-info-uri: https://kapi.kakao.com/v2/user/me
+            user-name-attribute: id

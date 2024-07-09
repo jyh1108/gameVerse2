@@ -28,4 +28,5 @@ public class Member {
     @Column(unique = true)
     private String nickName;
     private char deleteFl;
+
 }

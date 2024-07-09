@@ -14,6 +14,7 @@
             <h4>회원가입</h4>
         </div>
     </div>
+    <header th:replace="~{layout/header :: GameVerseHeader}"></header>
     <form action="/member/signup" th:object="${memberCreateForm}" method="post">
         <!-- 에러 메시지 표시 -->
         <div th:if="${#fields.hasErrors('loginId')}" class="error-message">

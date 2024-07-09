@@ -48,12 +48,15 @@ public class ReplyController {
 
     @PreAuthorize("isAuthenticated()")
     @GetMapping("/modify/{ReplyNo}")
-    public String ReplyModify(ReplyCreateForm replyCreateForm, @PathVariable("ReplyNo") Long ReplyNo, Principal principal) {
+    public String ReplyModify(@PathVariable("ReplyNo") Long ReplyNo, Principal principal, Model model) {
         Reply reply = this.replyService.getReply(ReplyNo);
         if (!reply.getAuthor().getLoginId().equals(principal.getName())) {
             throw new ResponseStatusException(HttpStatus.BAD_REQUEST, "수정권한이 없습니다.");
         }
+        ReplyCreateForm replyCreateForm = new ReplyCreateForm();
         replyCreateForm.setReplyContent(reply.getReplyContent());
+        model.addAttribute("replyCreateForm", replyCreateForm);
+        model.addAttribute("replyNo", ReplyNo);
         return "domain/reply/reply_form";
     }
 

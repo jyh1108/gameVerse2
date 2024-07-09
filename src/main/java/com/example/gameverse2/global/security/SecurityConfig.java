@@ -7,9 +7,11 @@ import org.springframework.security.config.annotation.authentication.configurati
 import org.springframework.security.config.annotation.method.configuration.EnableMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
+import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import org.springframework.security.web.context.HttpSessionSecurityContextRepository;
 import org.springframework.security.web.header.writers.frameoptions.XFrameOptionsHeaderWriter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 
@@ -28,7 +30,8 @@ public class SecurityConfig {
                                 new AntPathRequestMatcher("/member/signup"),
                                 new AntPathRequestMatcher("/member/login"),
                                 new AntPathRequestMatcher("/member/findPassword"),
-                                new AntPathRequestMatcher("/member/resetPassword")))
+                                new AntPathRequestMatcher("/member/resetPassword"),
+                                new AntPathRequestMatcher("/auth/kakao/callback")))
                 .headers(headers -> headers
                         .addHeaderWriter(new XFrameOptionsHeaderWriter(
                                 XFrameOptionsHeaderWriter.XFrameOptionsMode.SAMEORIGIN)))
@@ -40,7 +43,14 @@ public class SecurityConfig {
                 .logout(logout -> logout
                         .logoutRequestMatcher(new AntPathRequestMatcher("/member/logout"))
                         .logoutSuccessUrl("/")
-                        .invalidateHttpSession(true));
+                        .invalidateHttpSession(true))
+                .sessionManagement(sessionManagement -> sessionManagement
+                        .sessionCreationPolicy(SessionCreationPolicy.IF_REQUIRED)
+                )
+                .securityContext(securityContext -> securityContext
+                        .securityContextRepository(new HttpSessionSecurityContextRepository())
+                );
+
         return http.build();
     }
 
@@ -53,4 +63,6 @@ public class SecurityConfig {
     AuthenticationManager authenticationManager(AuthenticationConfiguration authenticationConfiguration) throws Exception {
         return authenticationConfiguration.getAuthenticationManager();
     }
+
+
 }

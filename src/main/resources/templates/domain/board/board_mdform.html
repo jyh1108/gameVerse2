@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html lang="kr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <title>게시글 수정하기</title>
+</head>
+<body>
+
+<header th:replace="~{layout/header :: GameVerseHeader}"></header>
+
+<div class="container">
+    <h5 class="my-3 border-bottom pb-2">질문 수정</h5>
+
+    <form th:object="${boardDto}" method="post">
+        <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+
+        <div class="mb-3">
+            <label for="boardCode" class="form-label">코드</label>
+            <select th:field="*{boardCode}" class="form-select">
+                <option th:value="'롤'" th:selected="${boardDto.boardCode == '롤'}">롤</option>
+                <option th:value="'발로란트'" th:selected="${boardDto.boardCode == '발로란트'}">발로란트</option>
+                <option th:value="'오버워치2'" th:selected="${boardDto.boardCode == '오버워치2'}">오버워치2</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="tag" class="form-label">태그</label>
+            <select th:field="*{tag}" class="form-select">
+                <option th:value="'자유'" th:selected="${boardDto.tag == '자유'}">자유</option>
+                <option th:value="'Tip'" th:selected="${boardDto.tag == 'Tip'}">Tip</option>
+                <option th:value="'질문'" th:selected="${boardDto.tag == '질문'}">질문</option>
+            </select>
+        </div>
+        <div class="mb-3">
+            <label for="boardTitle" class="form-label">제목</label>
+            <input type="text" th:field="*{boardTitle}" class="form-control">
+        </div>
+        <div class="mb-3">
+            <label for="boardText" class="form-label">내용</label>
+            <textarea th:field="*{boardText}" class="form-control" rows="10"></textarea>
+        </div>
+        <input type="submit" value="저장하기" class="btn btn-primary my-2">
+    </form>
+</div>
+</body>
+</html>

@@ -20,6 +20,10 @@
 <!-- ------------ -->
 <!-- form section -->
 <!-- ------------ -->
+
+<header th:replace="~{layout/header :: GameVerseHeader}"></header>
+
+
 <div class="login_form">
 
     <form th:action="@{/member/login}" method="post">
@@ -52,11 +56,15 @@
         <button type="submit" class="btn btn-outline-primary" style="width: 150px; margin: 3px auto;">
             로그인
         </button>
-
         <a  th:href="@{/member/find}"  class="btn btn-outline-primary" style="width: 150px; margin: 3px auto;">
             ID/PW 찾기
         </a>
+        <div>
+        <a href="https://kauth.kakao.com/oauth/authorize?response_type=code&client_id=ec511be6db16cca7e3d10f4dc80bcc8d&redirect_uri=http://localhost:8080/auth/kakao/callback
+"> <img src="/image/kakao_login_medium_narrow.png"/></a>
+        </div>
     </form>
+
 </div>
 
 <script src="/js/domain/member/login.js"></script>

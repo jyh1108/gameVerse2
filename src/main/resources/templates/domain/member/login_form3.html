@@ -2,6 +2,8 @@
 <html lang="kr">
 <meta charset="UTF-8">
 <div class="container my-3">
+  <header th:replace="~{layout/header :: GameVerseHeader}"></header>
+
   <form th:action="@{/member/login}" method="post">
     <div th:if="${param.error}">
       <div class="alert alert-danger">

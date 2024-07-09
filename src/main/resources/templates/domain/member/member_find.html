@@ -24,6 +24,8 @@
 
 <body>
 
+<header th:replace="~{layout/header :: GameVerseHeader}"></header>
+
 <div class="centered-container">
     <h3>무엇을 찾으시겠습니까?</h3>
     <a  th:href="@{/member/findId}" class="btn btn-outline-primary">

@@ -19,6 +19,10 @@
 <!-- ------------ -->
 <!-- form section -->
 <!-- ------------ -->
+
+<header th:replace="~{layout/header :: GameVerseHeader}"></header>
+
+
 <div class="register_form">
 
     <form action="/member/signup" th:object="${memberCreateForm}" method="post">

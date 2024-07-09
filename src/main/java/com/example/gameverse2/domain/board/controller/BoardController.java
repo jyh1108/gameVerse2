@@ -92,7 +92,7 @@ public class BoardController {
         boardDto.setBoardText(board.getBoardText());
         boardDto.setBoardCode(board.getBoardCode());
         boardDto.setTag(board.getTag());
-        return "domain/board/board_form";
+        return "domain/board/board_mdform   ";
     }
 
     @PreAuthorize("isAuthenticated()")
@@ -100,7 +100,7 @@ public class BoardController {
     public String boardModify(@Valid BoardDto boardDto, BindingResult bindingResult,
                                  Principal principal, @PathVariable("boardNo") Long boardNo) {
         if (bindingResult.hasErrors()) {
-            return "domain/board/board_form";
+            return "domain/board/board_mdform";
         }
         Board board = this.boardService.getBoard(boardNo);
         if (!board.getAuthor().getLoginId().equals(principal.getName())) {

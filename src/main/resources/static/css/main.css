@@ -35,3 +35,89 @@
     height: 100%;
     margin: 0 10px;
 }
+body {
+    width: 80%;
+    margin: auto;
+    margin-top: 20px;
+}
+
+.post_list_container {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    width: 800px;
+    margin: auto;
+}
+
+.post_list_box {
+    padding: 5px;
+    text-align: left; /* Change to left alignment */
+    border-width: 1px;
+    border-style: solid;
+    border-radius: 5px;
+    border-color: black;
+}
+
+.post_list_box hr {
+    margin: 0;
+    border-color: black;
+    opacity: .5;
+}
+
+.post_category {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0px;
+}
+
+.post_category .title {
+    font-size: large;
+    font-weight: bold;
+}
+
+.post_category .more_btn {
+    font-size: small;
+    font-weight: lighter;
+    color: gray;
+}
+
+.post_list .post_title {
+    text-decoration: none;
+    color: black;
+    transition: 0.2s;
+}
+
+tbody.post_hot td {
+    background-color: rgb(255, 220, 220);
+}
+
+tbody.post_new td {
+    background-color: rgb(220, 240, 255);
+}
+
+.hot-post td {
+    background-color: rgb(255, 200, 200);
+    font-weight: bold;
+}
+
+.hot-post td:first-child::before {
+    content: "HOT ";
+    color: red;
+    font-weight: bold;
+}
+
+.new-post td {
+    background-color: rgb(200, 230, 255);
+    font-weight: bold;
+}
+
+.new-post td:first-child::before {
+    content: "NEW ";
+    color: blue;
+    font-weight: bold;
+}
+
+.post_list td {
+    font-size: 0.875em; /* Adjust font size here to make text slightly smaller */
+}
