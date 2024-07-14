@@ -4,6 +4,7 @@
     <meta charset="UTF-8">
     <title>상세보기</title>
     <link href="https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css" rel="stylesheet">
+    <link rel="stylesheet" href="/css/domain/layout/header.css">
     <style>
         .content-container {
             margin: 20px auto;
@@ -28,6 +29,7 @@
     </style>
 </head>
 <body>
+<header th:replace="~{layout/header :: GameVerseHeader}"></header>
 <div class="container content-container">
 
     <h1 class="my-4" th:text="${board.boardTitle}"></h1>

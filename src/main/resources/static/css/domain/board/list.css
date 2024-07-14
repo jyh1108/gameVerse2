@@ -1,0 +1,42 @@
+body {
+    background-color: #f8f9fa;
+}
+.table th, .table td {
+    vertical-align: middle;
+}
+.pagination .page-item.disabled .page-link {
+    background-color: #e9ecef;
+    border-color: #dee2e6;
+}
+.btn-primary {
+    background-color: #007bff;
+    border-color: #007bff;
+}
+.btn-outline-secondary {
+    border-color: #6c757d;
+}
+.btn-outline-secondary:hover {
+    background-color: #6c757d;
+    border-color: #6c757d;
+    color: #fff;
+}
+.tag-buttons {
+    display: flex;
+    gap: 10px; /* 태그 버튼 간격 */
+}
+.flex-container {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+.search-container {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+.search-container input {
+    width: 290px; /* 검색어 입력칸의 너비를 290px로 설정 */
+}
+.tag-buttons {
+    margin-left: 10px; /* 질문 등록하기 버튼과 태그 버튼 사이의 여백 추가 */
+}

@@ -10,15 +10,16 @@ spring:
     virtual:
       enabled: true
   datasource:
-    url: jdbc:h2:./gameVerse2_dev;MODE=MYSQL
-    username: sa
-    password:
-    driver-class-name: org.h2.Driver
+    url: jdbc:mysql://database-2.cpu46amssmhg.us-east-2.rds.amazonaws.com:3306/gameverse2?serverTimezone=UTC&useSSL=false
+    username: admin
+    password: a134679852
+    driver-class-name: com.mysql.cj.jdbc.Driver
   jpa:
     hibernate:
       ddl-auto: update
     properties:
       hibernate:
+        dialect: org.hibernate.dialect.MySQLDialect
         default_batch_fetch_size: 100
         format_sql: true
         highlight_sql: true

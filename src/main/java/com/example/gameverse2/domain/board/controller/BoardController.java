@@ -92,7 +92,7 @@ public class BoardController {
         boardDto.setBoardText(board.getBoardText());
         boardDto.setBoardCode(board.getBoardCode());
         boardDto.setTag(board.getTag());
-        return "domain/board/board_mdform   ";
+        return "domain/board/board_mdform";
     }
 
     @PreAuthorize("isAuthenticated()")

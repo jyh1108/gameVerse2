@@ -1,0 +1,134 @@
+@font-face {
+    font-family: 'SDTR';
+    font-style: 'normal';
+    font-weight: 400;
+    src: url("../external_files/SDTR_Font.ttf");
+}
+
+.font_sdtr {
+    font-family: 'SDTR';
+}
+
+:root {
+    /* --main-width : 1100px; */
+}
+
+body {
+    /* width : var(--main-width); */
+    margin: auto;
+    /* margin-top: 8px; */
+}
+
+#customUpperMenu {
+    display: flex;
+    justify-content: flex-end;
+}
+
+#customUpperMenu a {
+    margin-left: 5px;
+    background-color: white;
+    border: 1px solid black;
+    border-radius: 5px;
+    font-size: smaller;
+    transition: 0.2s;
+    text-decoration: none;
+    padding: 5px 10px;
+}
+
+#customUpperMenu a:hover {
+    background-color: black;
+    color: white;
+}
+
+/* ************** */
+/* header section */
+/* ************** */
+
+.customHeader {
+    height: 100px;
+    display: flex;
+    align-items: center;
+}
+
+.customHeader .customLogo {
+    font-family: "SDTR";
+    font-size: 35px;
+    line-height: 0.6;
+    transform: skewX(-25deg) rotate(-10deg);
+    margin: auto;
+    cursor: pointer;
+    text-decoration: none;
+    color: black;
+}
+
+.customHeader .customLogo p {
+    margin: 0;
+    width: 110px;
+}
+
+/* ****************** */
+/* navigation section */
+/* ****************** */
+.header {
+    background-color: #f8f9fa;
+    padding: 20px;
+    text-align: center;
+    margin-bottom: 40px;
+}
+
+.customNav {
+    width: 100%;
+    margin: auto;
+    margin-top: 10px;
+    width: 1100px;
+}
+
+.customNav ul {
+    width: 80%;
+    height: 30px;
+    margin: auto;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    text-decoration: none;
+    list-style-type: none;
+}
+
+.customNav ul li a {
+    font-size: small;
+    font-weight: bold;
+    color: black;
+    cursor: pointer;
+    transition: all 0.2s;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 3px;
+    text-decoration: none;
+}
+
+.customNav ul li a:hover {
+    font-weight: bolder;
+    border: 1px solid black;
+    background-color: black;
+    color: white;
+}
+
+.customNav ul .customWritePost a {
+    border: 1px solid black;
+    background-color: black;
+    color: white;
+}
+
+.customNav ul .customWritePost a:hover {
+    border: 1px solid rgb(0, 67, 201);
+    background-color: rgb(0, 67, 201);
+}
+
+.customNav hr {
+    margin: 0;
+    height: 3px;
+    border: 1px solid black;
+    border-left: 0px;
+    border-right: 0px;
+    opacity: 1;
+}
