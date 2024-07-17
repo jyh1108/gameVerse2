@@ -31,7 +31,7 @@ spring:
           kakao:
             client-id: ec511be6db16cca7e3d10f4dc80bcc8d
             client-secret: ""  # 카카오는 클라이언트 시크릿을 사용하지 않음
-            redirect-uri: "http://localhost:8080/auth/kakao/callback"
+            redirect-uri: "http://ec2-13-209-18-232.ap-northeast-2.compute.amazonaws.com:8080/auth/kakao/callback"
             authorization-grant-type: authorization_code
             scope: profile, account_email
             client-name: Kakao
