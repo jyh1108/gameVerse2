@@ -70,6 +70,7 @@ public class BoardService {
     public void delete(Board board) {
         board.setDeleteDate(LocalDateTime.now());
         board.setBoardDelete('Y');
+        board.setLikeCount(0);
         this.boardRepository.save(board);
     }
 
