@@ -27,7 +27,6 @@ public class BoardService {
     private final MemberRepository memberRepository;
 
 
-
     public Board createBoard(String boardTitle, String boardText, String boardCode, String tag, Member author) {
         Board board = new Board();
         board.setBoardCode(boardCode);
@@ -51,11 +50,11 @@ public class BoardService {
     }
 
 
-    public Board getBoard(Long boardNo){
+    public Board getBoard(Long boardNo) {
         Optional<Board> board = this.boardRepository.findById(boardNo);
-        if(board.isPresent()){
+        if (board.isPresent()) {
             return board.get();
-        }else {
+        } else {
             throw new DataNotFoundException("board not found");
         }
     }
@@ -85,6 +84,7 @@ public class BoardService {
     private Specification<Board> search(String kw) {
         return new Specification<>() {
             private static final long serialVersionUID = 1L;
+
             @Override
             public Predicate toPredicate(Root<Board> q, CriteriaQuery<?> query, CriteriaBuilder cb) {
                 query.distinct(true);  // 중복을 제거
@@ -105,7 +105,7 @@ public class BoardService {
     }
 
     public List<Board> getLatestTop5Boards() {
-        return boardRepository.findTop5ByOrderByCreateDateDesc();
+        return boardRepository.findTop5ByBoardDeleteOrderByCreateDateDesc('N');
     }
 
     public Page<Board> getBoardList(String kw, String tag, int page) {
@@ -113,29 +113,28 @@ public class BoardService {
 
         // 키워드와 태그를 사용한 검색
         if (kw != null && !kw.isEmpty() && tag != null && !tag.isEmpty()) {
-            return boardRepository.findByBoardTitleContainingAndTag(kw, tag, pageable);
+            return boardRepository.findByBoardTitleContainingAndTagAndBoardDelete(kw, tag, 'N', pageable);
         } else if (kw != null && !kw.isEmpty()) {
-            return boardRepository.findByBoardTitleContaining(kw, pageable);
+            return boardRepository.findByBoardTitleContainingAndBoardDelete(kw, 'N', pageable);
         } else if (tag != null && !tag.isEmpty()) {
-            return boardRepository.findByTag(tag, pageable);
+            return boardRepository.findByTagAndBoardDelete(tag, 'N', pageable);
         } else {
-            return boardRepository.findboardAll(pageable);
+            return boardRepository.findByBoardDelete('N', pageable);
         }
     }
-
 
 
     public Page<Board> getBoardCodeList(String kw, String tag, int page, String boardCode) {
         Pageable pageable = PageRequest.of(page, 10, Sort.by(Sort.Direction.DESC, "createDate"));
 
         if (kw != null && !kw.isEmpty() && tag != null && !tag.isEmpty()) {
-            return boardRepository.findByBoardTitleContainingAndTagAndBoardCode(kw, tag, boardCode, pageable);
+            return boardRepository.findByBoardTitleContainingAndTagAndBoardCodeAndBoardDelete(kw, tag, boardCode, 'N', pageable);
         } else if (kw != null && !kw.isEmpty()) {
-            return boardRepository.findByBoardTitleContainingAndBoardCode(kw, boardCode, pageable);
+            return boardRepository.findByBoardTitleContainingAndBoardCodeAndBoardDelete(kw, boardCode, 'N', pageable);
         } else if (tag != null && !tag.isEmpty()) {
-            return boardRepository.findByTagAndBoardCode(tag, boardCode, pageable);
+            return boardRepository.findByTagAndBoardCodeAndBoardDelete(tag, boardCode, 'N', pageable);
         } else {
-            return boardRepository.findByBoardCode(boardCode, pageable);
+            return boardRepository.findByBoardCodeAndBoardDelete(boardCode, 'N', pageable);
         }
     }
 }

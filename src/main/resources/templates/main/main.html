@@ -106,7 +106,7 @@
                 </colgroup>
                 <tbody>
                 <tr th:each="board, iterStat : ${latestBoards}"
-                    th:classappend="${iterStat.index < 2} ? 'new-post' : ''" th:if="${board.boardDelete} != 'Y'">
+                    th:classappend="${iterStat.index < 2} ? 'new-post' : ''">
                     <td><a th:href="@{/board/detail/{id}(id=${board.boardNo})}" th:text="${board.boardTitle}" class="post_title"></a></td>
                     <td th:text="${board.likeCount}"></td>
                 </tr>

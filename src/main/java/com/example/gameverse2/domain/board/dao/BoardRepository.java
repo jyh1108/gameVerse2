@@ -32,21 +32,15 @@ public interface BoardRepository extends JpaRepository<Board, Long> {
 
     List<Board> findTop5ByBoardCodeOrderByLikeCountDesc(String boardCode);
 
-    List<Board> findTop5ByOrderByCreateDateDesc();  // 최신글 5개를 가져오는 메서드
+    List<Board> findTop5ByBoardDeleteOrderByCreateDateDesc(Character boardDelete);
 
+    Page<Board> findByBoardTitleContainingAndTagAndBoardDelete(String boardTitle, String tag, Character boardDelete, Pageable pageable);
+    Page<Board> findByBoardTitleContainingAndBoardDelete(String boardTitle, Character boardDelete, Pageable pageable);
+    Page<Board> findByTagAndBoardDelete(String tag, Character boardDelete, Pageable pageable);
+    Page<Board> findByBoardDelete(Character boardDelete, Pageable pageable);
 
-    Page<Board> findByBoardTitleContainingAndTag(String kw, String tag, Pageable pageable);
-
-    Page<Board> findByBoardTitleContaining(String kw, Pageable pageable);
-
-    Page<Board> findByTag(String tag, Pageable pageable);
-
-    Page<Board> findByBoardCode(String boardCode, Pageable pageable);
-
-
-    Page<Board> findByBoardTitleContainingAndTagAndBoardCode(String kw, String tag, String boardCode, Pageable pageable);
-
-    Page<Board> findByBoardTitleContainingAndBoardCode(String kw, String boardCode, Pageable pageable);
-
-    Page<Board> findByTagAndBoardCode(String tag, String boardCode, Pageable pageable);
+    Page<Board> findByBoardTitleContainingAndTagAndBoardCodeAndBoardDelete(String boardTitle, String tag, String boardCode, Character boardDelete, Pageable pageable);
+    Page<Board> findByBoardTitleContainingAndBoardCodeAndBoardDelete(String boardTitle, String boardCode, Character boardDelete, Pageable pageable);
+    Page<Board> findByTagAndBoardCodeAndBoardDelete(String tag, String boardCode, Character boardDelete, Pageable pageable);
+    Page<Board> findByBoardCodeAndBoardDelete(String boardCode, Character boardDelete, Pageable pageable);
 }
