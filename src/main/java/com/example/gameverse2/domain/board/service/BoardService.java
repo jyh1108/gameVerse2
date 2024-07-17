@@ -119,7 +119,7 @@ public class BoardService {
         } else if (tag != null && !tag.isEmpty()) {
             return boardRepository.findByTag(tag, pageable);
         } else {
-            return boardRepository.findAll(pageable);
+            return boardRepository.findboardAll(pageable);
         }
     }
 

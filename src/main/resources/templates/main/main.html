@@ -30,7 +30,7 @@
                     <col style="width:10%">
                 </colgroup>
                 <tbody>
-                <tr th:each="board, iterStat : ${code1Top5}" th:classappend="${iterStat.index < 2} ? 'hot-post' : ''">
+                <tr th:each="board, iterStat : ${code1Top5}" th:classappend="${iterStat.index < 2} ? 'hot-post' : ''" th:if="${board.boardDelete} != 'Y'">
                     <td><a th:href="@{/board/detail/{id}(id=${board.boardNo})}" th:text="${board.boardTitle}" class="post_title"></a></td>
                     <td th:text="${board.likeCount}"></td>
                 </tr>
@@ -55,7 +55,7 @@
                     <col style="width:10%">
                 </colgroup>
                 <tbody>
-                <tr th:each="board, iterStat : ${code3Top5}" th:classappend="${iterStat.index < 2} ? 'hot-post' : ''">
+                <tr th:each="board, iterStat : ${code3Top5}" th:classappend="${iterStat.index < 2} ? 'hot-post' : ''" th:if="${board.boardDelete} != 'Y'">
                     <td><a th:href="@{/board/detail/{id}(id=${board.boardNo})}" th:text="${board.boardTitle}" class="post_title"></a></td>
                     <td th:text="${board.likeCount}"></td>
                 </tr>
@@ -80,7 +80,7 @@
                     <col style="width:10%">
                 </colgroup>
                 <tbody>
-                <tr th:each="board, iterStat : ${code2Top5}" th:classappend="${iterStat.index < 2} ? 'hot-post' : ''">
+                <tr th:each="board, iterStat : ${code2Top5}" th:classappend="${iterStat.index < 2} ? 'hot-post' : ''" th:if="${board.boardDelete} != 'Y'">
                     <td><a th:href="@{/board/detail/{id}(id=${board.boardNo})}" th:text="${board.boardTitle}" class="post_title"></a></td>
                     <td th:text="${board.likeCount}"></td>
                 </tr>
@@ -106,7 +106,7 @@
                 </colgroup>
                 <tbody>
                 <tr th:each="board, iterStat : ${latestBoards}"
-                    th:classappend="${iterStat.index < 2} ? 'new-post' : ''">
+                    th:classappend="${iterStat.index < 2} ? 'new-post' : ''" th:if="${board.boardDelete} != 'Y'">
                     <td><a th:href="@{/board/detail/{id}(id=${board.boardNo})}" th:text="${board.boardTitle}" class="post_title"></a></td>
                     <td th:text="${board.likeCount}"></td>
                 </tr>
