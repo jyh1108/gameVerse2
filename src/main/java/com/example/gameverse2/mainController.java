@@ -22,6 +22,6 @@ public class mainController {
 
         List<Board> latestTop5Boards = boardService.getLatestTop5Boards();
         model.addAttribute("latestBoards", latestTop5Boards);
-        return "/main/main";
+        return "main/main";
     }
 }
